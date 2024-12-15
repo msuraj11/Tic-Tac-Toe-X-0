@@ -1,3 +1,17 @@
+export const initialGameBoard = [
+  [null, null, null],
+  [null, null, null],
+  [null, null, null],
+];
+
+export function derivedActivePlayer(gameTurns) {
+  let currentPlayer = "X";
+  if (gameTurns?.length > 0 && gameTurns[0].player === "X") {
+    currentPlayer = "O";
+  }
+  return currentPlayer;
+}
+
 // Works for 3x3, 4x4, 5x5
 export function generateWinningCombination(boardSize) {
   const straightCombinations = boardSize * 2; //n * 2
