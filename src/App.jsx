@@ -3,13 +3,13 @@ import GameBoard from "./components/GameBoard";
 import Logs from "./components/Logs";
 import Player from "./components/Player";
 import GameOver from "./components/GameOver";
+import Warning from "./components/Warning";
 import {
   generateWinningCombination,
   derivedActivePlayer,
   generateGameBoard,
 } from "./helpers";
 import { PLAYER_1, PLAYER_2, X, O } from "./constants";
-import Modal from "./components/Modal";
 
 let gameBoard;
 const winnigCombinations3x3 = generateWinningCombination(3);
@@ -83,30 +83,14 @@ function App() {
   return (
     <main>
       <div id="pre-game">
-        {!freshGame && (
-          <button name="no" onClick={handleModalClicks}>
-            🔁
-          </button>
-        )}
+        <button
+          name="no"
+          onClick={handleModalClicks}
+          disabled={freshGame || winner || hasDraw}
+        >
+          🔁
+        </button>
       </div>
-      {isWarning && (
-        <Modal>
-          <p>Are you sure you want to rematch?</p>
-          <ul>
-            <li>
-              <button name="yes" onClick={handleModalClicks}>
-                Yes
-              </button>
-            </li>
-            <li>
-              <button name="no" onClick={handleModalClicks}>
-                No
-              </button>
-            </li>
-          </ul>
-        </Modal>
-      )}
-
       <div id="game-container">
         <ol id="players" className="highlight-player">
           <Player
@@ -127,6 +111,7 @@ function App() {
         {(winner || hasDraw) && (
           <GameOver winner={winner} onRematch={handleRematchClick} />
         )}
+        {isWarning && <Warning handleModalClicks={handleModalClicks} />}
         <GameBoard
           onSelectSquare={handleSelectSquare}
           board={gameBoard}

@@ -1,3 +1,3 @@
 export default function Modal({ children }) {
-  return <div id="game-over">{children}</div>;
+  return <div id="modal-overlay">{children}</div>;
 }
