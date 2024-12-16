@@ -118,7 +118,7 @@ function App() {
           disableBoard={isWarning}
         />
       </div>
-      <Logs turns={gameTurns} />
+      <Logs turns={gameTurns} players={players} />
     </main>
   );
 }

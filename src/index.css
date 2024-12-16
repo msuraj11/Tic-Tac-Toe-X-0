@@ -364,3 +364,79 @@ ol {
     transform: scale(1);
   }
 }
+
+@media (max-width: 535px) {
+  #game-container {
+    max-width: 21rem;
+    margin: 1.2rem auto;
+    padding: 1rem;
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+
+  #players {
+    margin: 0.5rem 0;
+    gap: 1rem;
+    justify-content: space-evenly;
+  }
+
+  #players li {
+    width: 45%;
+    border: 1px solid transparent;
+  }
+
+  #players button {
+    width: 1.2rem;
+    font-size: 0.4rem;
+  }
+
+  .player {
+    border: 1px solid transparent;
+    padding: 0.25rem;
+    border-radius: 2px;
+  }
+
+  .player-name {
+    width: 5rem;
+    font-size: 0.5rem;
+    padding: 0.25rem;
+    border-radius: 2px;
+  }
+
+  .player input {
+    font-size: 0.5rem;
+    width: 5rem;
+    padding: 0.25rem;
+    animation: pulse-text 2s infinite;
+  }
+
+  .player-symbol {
+    margin-left: 0.5rem;
+    font-size: 0.5rem;
+  }
+
+  #pre-game button {
+    font-size: 1rem;
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.7);
+  }
+
+  #game-board {
+    gap: 1rem;
+    margin: 0.5rem 0;
+  }
+
+  #game-board ol {
+    gap: 1rem;
+  }
+
+  #game-board button {
+    width: 4rem;
+    height: 4rem;
+    font-size: 2.2rem;
+    padding: 0.5rem;
+  }
+
+  #modal-overlay {
+    height: 140%;
+  }
+}

@@ -1,4 +1,4 @@
-export default function Logs({ turns }) {
+export default function Logs({ turns, players }) {
   return (
     <ol id="log">
       {turns?.map((turn) => {
@@ -6,7 +6,7 @@ export default function Logs({ turns }) {
         const col = turn?.square?.col;
         return (
           <li key={`${row}${col}`}>
-            {turn?.player} selected {row}, {col}
+            {players[turn?.player]} selected {row}, {col}
           </li>
         );
       })}
