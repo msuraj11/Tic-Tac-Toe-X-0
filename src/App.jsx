@@ -4,51 +4,18 @@ import Logs from "./components/Logs";
 import Player from "./components/Player";
 import GameOver from "./components/GameOver";
 import Warning from "./components/Warning";
-import {
-  generateWinningCombination,
-  derivedActivePlayer,
-  generateGameBoard,
-} from "./helpers";
+import { derivedActivePlayer, deriveGameBoard, deriveWinner } from "./helpers";
 import { PLAYER_1, PLAYER_2, X, O } from "./constants";
-
-let gameBoard;
-const winnigCombinations3x3 = generateWinningCombination(3);
 
 function App() {
   const [gameTurns, setGameTurns] = useState([]);
   const [players, setPlayers] = useState({ [X]: PLAYER_1, [O]: PLAYER_2 });
   const [isWarning, toggleIsWarning] = useState(false);
+
   const activePlayer = derivedActivePlayer(gameTurns);
   const freshGame = gameTurns.length === 0;
-
-  if (freshGame || !gameBoard) {
-    gameBoard = [...generateGameBoard(3).map((row) => [...row])];
-  }
-
-  for (const turn of gameTurns) {
-    const { square, player } = turn;
-    const { row, col } = square;
-    gameBoard[row][col] = player;
-  }
-
-  let winner;
-  for (const combination of winnigCombinations3x3) {
-    const firstSquareSymbol =
-      gameBoard[combination[0]?.row][combination[0]?.column];
-    const secondSquareSymbol =
-      gameBoard[combination[1]?.row][combination[1]?.column];
-    const thirdSquareSymbol =
-      gameBoard[combination[2]?.row][combination[2]?.column];
-    if (
-      firstSquareSymbol &&
-      firstSquareSymbol === secondSquareSymbol &&
-      firstSquareSymbol === thirdSquareSymbol
-    ) {
-      winner = players[firstSquareSymbol];
-      break;
-    }
-  }
-
+  const gameBoard = deriveGameBoard(gameTurns, freshGame);
+  const winner = deriveWinner(gameBoard, players);
   const hasDraw = gameTurns.length === 9 && !winner;
 
   function handleSelectSquare(rowIndex, colIndex) {
