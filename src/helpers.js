@@ -1,15 +1,13 @@
-export const initialGameBoard = [
-  [null, null, null],
-  [null, null, null],
-  [null, null, null],
-];
+import { O, X } from "./constants";
+
+export function generateGameBoard(boardSize) {
+  return new Array(boardSize)
+    .fill()
+    .map((item) => new Array(boardSize).fill(null));
+}
 
 export function derivedActivePlayer(gameTurns) {
-  let currentPlayer = "X";
-  if (gameTurns?.length > 0 && gameTurns[0].player === "X") {
-    currentPlayer = "O";
-  }
-  return currentPlayer;
+  return gameTurns?.length > 0 && gameTurns[0].player === X ? O : X;
 }
 
 // Works for 3x3, 4x4, 5x5
