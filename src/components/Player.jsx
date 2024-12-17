@@ -1,14 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Player({
-  initialName,
+  savedName,
   symbol,
   isActive,
   onSaveName,
-  disableEdit,
+  freshGame,
+  hasInvalidInput,
 }) {
-  const [isEditing, setEditing] = useState(false);
-  const [playerName, setPlayerName] = useState(initialName);
+  const [isEditing, setEditing] = useState(true);
+  const [playerName, setPlayerName] = useState(savedName);
+
+  useEffect(() => {
+    if (freshGame) {
+      setEditing(true);
+      setPlayerName(savedName);
+    }
+  }, [freshGame]);
 
   function handleEditClick() {
     setEditing((prevState) => !prevState);
@@ -21,19 +29,18 @@ export default function Player({
     setPlayerName(event.target.value);
   }
 
-  function handleEventOut() {
-    onSaveName(symbol, playerName);
-  }
+  // function handleInputBlur() {}
 
-  let playerNameJsx = <span className="player-name">{playerName}</span>;
-  if (isEditing && !disableEdit) {
+  let playerNameJsx = <span className="player-name">{savedName}</span>;
+  if (isEditing && freshGame) {
     playerNameJsx = (
       <input
         type="text"
         required
         onChange={handlePlayerNameChange}
-        onBlur={handleEventOut}
+        //obBlur={handleInputBlur}
         value={playerName}
+        className={hasInvalidInput ? "invalid" : undefined}
       />
     );
   }
@@ -44,8 +51,8 @@ export default function Player({
         {playerNameJsx}
         <span className="player-symbol">{symbol}</span>
       </span>
-      {!disableEdit && (
-        <button onMouseLeave={handleEventOut} onClick={handleEditClick}>
+      {freshGame && (
+        <button onClick={handleEditClick} disabled={!playerName}>
           {isEditing ? "Save" : "Edit"}
         </button>
       )}
