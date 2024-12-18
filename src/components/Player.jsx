@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from 'react';
 
 export default function Player({
   savedName,
@@ -6,17 +6,21 @@ export default function Player({
   isActive,
   onSaveName,
   freshGame,
-  hasInvalidInput,
+  hasInvalidInput
 }) {
   const [isEditing, setEditing] = useState(true);
   const [playerName, setPlayerName] = useState(savedName);
+  const invalidClassName = hasInvalidInput ? 'invalid' : undefined;
+  const spanClassName = invalidClassName
+    ? `player-name ${invalidClassName}`
+    : 'player-name';
 
   useEffect(() => {
-    if (freshGame) {
+    if (freshGame || hasInvalidInput) {
       setEditing(true);
       setPlayerName(savedName);
     }
-  }, [freshGame]);
+  }, [freshGame, hasInvalidInput]);
 
   function handleEditClick() {
     setEditing((prevState) => !prevState);
@@ -26,34 +30,31 @@ export default function Player({
   }
 
   function handlePlayerNameChange(event) {
-    setPlayerName(event.target.value);
+    setPlayerName(event.target.value?.toLowerCase());
   }
 
-  // function handleInputBlur() {}
-
-  let playerNameJsx = <span className="player-name">{savedName}</span>;
+  let playerNameJsx = <span className={spanClassName}>{savedName}</span>;
   if (isEditing && freshGame) {
     playerNameJsx = (
       <input
         type="text"
         required
         onChange={handlePlayerNameChange}
-        //obBlur={handleInputBlur}
         value={playerName}
-        className={hasInvalidInput ? "invalid" : undefined}
+        className={invalidClassName}
       />
     );
   }
 
   return (
-    <li className={isActive ? "active" : undefined}>
+    <li className={isActive ? 'active' : undefined}>
       <span className="player">
         {playerNameJsx}
         <span className="player-symbol">{symbol}</span>
       </span>
       {freshGame && (
         <button onClick={handleEditClick} disabled={!playerName}>
-          {isEditing ? "Save" : "Edit"}
+          {isEditing ? 'Save' : 'Edit'}
         </button>
       )}
     </li>
