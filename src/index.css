@@ -49,13 +49,20 @@ h1 {
 }
 
 #game-container {
-  max-width: 45rem;
   margin: 3rem auto;
   padding: 2rem;
   border-radius: 6px;
   background: linear-gradient(#383624, #282617);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   position: relative;
+}
+
+.xl-width {
+  max-width: 55rem;
+}
+
+.l-width {
+  max-width: 45rem;
 }
 
 #players {
@@ -397,11 +404,14 @@ ol {
 
 @media (max-width: 535px) {
   #game-container {
-    max-width: 21rem;
     margin: 1.2rem auto;
     padding: 1rem;
     border-radius: 3px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .l-width {
+    max-width: 21rem;
   }
 
   #players {
@@ -468,5 +478,11 @@ ol {
 
   #modal-overlay {
     height: 140%;
+  }
+}
+
+@media (max-width: 850px) {
+  .xl-width {
+    max-width: 31rem;
   }
 }

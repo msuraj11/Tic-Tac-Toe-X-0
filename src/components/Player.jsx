@@ -30,7 +30,7 @@ export default function Player({
   }
 
   function handlePlayerNameChange(event) {
-    setPlayerName(event.target.value?.toLowerCase());
+    setPlayerName(event.target.value?.toLowerCase().trim());
   }
 
   let playerNameJsx = <span className={spanClassName}>{savedName}</span>;
