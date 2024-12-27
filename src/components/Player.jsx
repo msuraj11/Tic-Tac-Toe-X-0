@@ -6,7 +6,8 @@ export default function Player({
   isActive,
   onSaveName,
   freshGame,
-  hasInvalidInput
+  hasInvalidInput,
+  hasEmptyInputs
 }) {
   const [isEditing, setEditing] = useState(true);
   const [playerName, setPlayerName] = useState(savedName);
@@ -14,13 +15,14 @@ export default function Player({
   const spanClassName = invalidClassName
     ? `player-name ${invalidClassName}`
     : 'player-name';
+  const readyToPlay = !hasInvalidInput && !hasEmptyInputs && isActive;
 
   useEffect(() => {
-    if (freshGame || hasInvalidInput) {
+    if (hasInvalidInput) {
       setEditing(true);
       setPlayerName(savedName);
     }
-  }, [freshGame, hasInvalidInput]);
+  }, [hasInvalidInput]);
 
   function handleEditClick() {
     setEditing((prevState) => !prevState);
@@ -47,7 +49,7 @@ export default function Player({
   }
 
   return (
-    <li className={isActive ? 'active' : undefined}>
+    <li className={readyToPlay ? 'active' : undefined}>
       <span className="player">
         {playerNameJsx}
         <span className="player-symbol">{symbol}</span>

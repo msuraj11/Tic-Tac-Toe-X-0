@@ -23,10 +23,10 @@ function App() {
   const winner = deriveWinner(gameBoard, players, boardSize);
   const hasDraw = gameTurns.length === 9 && !winner;
   const hasSameName = players.X === players.O;
-  const disableBoard =
-    isWarning ||
-    Object.values(players).some((player) => player?.length === 0) ||
-    hasSameName;
+  const hasEmptyInputs = Object.values(players).some(
+    (player) => player?.length === 0
+  );
+  const disableBoard = isWarning || hasEmptyInputs || hasSameName;
 
   function handleGameBoardChoice(event) {
     setBoardSize(Number(event?.target?.name));
@@ -87,6 +87,7 @@ function App() {
             onSaveName={handleSaveName}
             freshGame={freshGame}
             hasInvalidInput={players.X.length === 0 || hasSameName}
+            hasEmptyInputs={hasEmptyInputs}
           />
           <Player
             symbol={O}
@@ -95,6 +96,7 @@ function App() {
             onSaveName={handleSaveName}
             freshGame={freshGame}
             hasInvalidInput={players.O.length === 0 || hasSameName}
+            hasEmptyInputs={hasEmptyInputs}
           />
         </ol>
         {(winner || hasDraw) && (
