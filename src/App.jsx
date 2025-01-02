@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import GameBoard from './components/GameBoard';
 import Logs from './components/Logs';
 import Player from './components/Player';
@@ -12,6 +12,7 @@ function App() {
   const [players, setPlayers] = useState(INIT_PLAYERS);
   const [isWarning, toggleIsWarning] = useState(false);
   const [boardSize, setBoardSize] = useState(3);
+  const inputRef = useRef(null);
 
   useEffect(() => {
     toggleIsWarning(true);
@@ -31,6 +32,7 @@ function App() {
   function handleGameBoardChoice(event) {
     setBoardSize(Number(event?.target?.name));
     toggleIsWarning(false);
+    inputRef?.current?.focus();
   }
 
   function handleSelectSquare(rowIndex, colIndex) {
@@ -88,6 +90,7 @@ function App() {
             freshGame={freshGame}
             hasInvalidInput={players.X.length === 0 || hasSameName}
             hasEmptyInputs={hasEmptyInputs}
+            ref={inputRef}
           />
           <Player
             symbol={O}

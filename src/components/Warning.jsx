@@ -1,3 +1,4 @@
+import {isMobile} from '../helpers';
 import Modal from './Modal';
 
 export default function Warning({
@@ -21,12 +22,20 @@ export default function Warning({
               4 X 4
             </button>
           </li>
-          <li>
-            <button name="5" onClick={handleGameBoardChoice}>
-              5 X 5
-            </button>
-          </li>
+          {!isMobile() && (
+            <li>
+              <button name="5" onClick={handleGameBoardChoice}>
+                5 X 5
+              </button>
+            </li>
+          )}
         </ul>
+        {isMobile() && (
+          <small>
+            Wanna have more fun playing this game with more bigger board? Try on
+            bigger screens 😉
+          </small>
+        )}
       </>
     );
   } else {

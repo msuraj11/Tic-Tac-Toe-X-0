@@ -77,3 +77,7 @@ export function deriveGameBoard(gameTurns, freshGame, boardSize) {
   }
   return gameBoard;
 }
+
+export function isMobile() {
+  return /Mobi|Android|iPhone|iPod|Windows Phone/i.test(navigator.userAgent);
+}
