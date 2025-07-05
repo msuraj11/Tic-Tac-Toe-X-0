@@ -22,7 +22,7 @@ function App() {
   const freshGame = gameTurns.length === 0;
   const gameBoard = deriveGameBoard(gameTurns, freshGame, boardSize);
   const winner = deriveWinner(gameBoard, players, boardSize);
-  const hasDraw = gameTurns.length === 9 && !winner;
+  const hasDraw = gameTurns.length === Math.pow(boardSize, 2) && !winner;
   const hasSameName = players.X === players.O;
   const hasEmptyInputs = Object.values(players).some(
     (player) => player?.length === 0

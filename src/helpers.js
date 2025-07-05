@@ -65,17 +65,20 @@ export function deriveWinner(gameBoard, players, boardSize) {
   return winner;
 }
 
+let gameBoard = [];
+
 export function deriveGameBoard(gameTurns, freshGame, boardSize) {
-  const gameBoard = [...generateGameBoard(boardSize).map((row) => [...row])];
   if (freshGame) {
+    gameBoard = generateGameBoard(boardSize);
     return gameBoard;
   }
+  const gameBoardCopy = [...gameBoard.map(row => [...row])];
   for (const turn of gameTurns) {
     const {square, player} = turn;
     const {row, col} = square;
-    gameBoard[row][col] = player;
+    gameBoardCopy[row][col] = player;
   }
-  return gameBoard;
+  return gameBoardCopy;
 }
 
 export function isMobile() {
